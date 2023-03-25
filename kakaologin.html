@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 심금 6월 공연 좌석 예매 </title>
+</head>
+
+<body>
+    <a href="javascript:kakaoLogin()";> <img src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png" style ="height:60px; width:auto;"/> </a> 
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    
+    <!-- window.kakao.init("카카오 key") 윈도우를 열자마자 카카오 인증키로 인증 받음-->
+    <!-- Kakao.API.request(); 문서에 다 나와 있는데, 파라미터에서 key : Description (required가 O 인 것만 사용 가능)-->
+    <script>
+        window.Kakao.init("3a35c3e0f0e54895bd3199975bb32849");
+        function kakaoLogin() {
+            window.Kakao.Auth.login({
+                scope:'gender', // 개인정보에서 등록한 아이들의 id 변수명을 적음
+                // 로그인되면 success function이 일어나는데, 객체를 선언하여
+                success: function(auth0bj) { 
+                    console.log(auth0bj);  // 콘솔로 찍음
+                    window.Kakao.API.request({
+                        url: '/v2/user/me',
+                        success: res => {
+                            const kakao_account = res.kakao_account;
+                            console.log(kakao_account);
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
